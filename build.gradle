@@ -1,0 +1,63 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.practice'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+//
+    // https://mvnrepository.com/artifact/io.cucumber/cucumber-junit
+    testImplementation group: 'io.cucumber', name: 'cucumber-junit', version: '7.15.0'
+
+// https://mvnrepository.com/artifact/io.cucumber/cucumber-java8
+    implementation group: 'io.cucumber', name: 'cucumber-java8', version: '7.15.0'
+
+    // https://mvnrepository.com/artifact/io.cucumber/cucumber-java
+    implementation group: 'io.cucumber', name: 'cucumber-java', version: '7.15.0'
+
+    // https://mvnrepository.com/artifact/io.cucumber/cucumber-picocontainer
+    implementation group: 'io.cucumber', name: 'cucumber-picocontainer', version: '7.15.0'
+
+//
+//        testImplementation platform('org.junit:junit-bom:5.10.2')
+//        testImplementation 'org.junit.jupiter:junit-jupiter'
+
+
+    testImplementation group: 'org.testng', name: 'testng', version: '7.6.0'
+
+    implementation 'org.seleniumhq.selenium:selenium-java:4.16.1'
+
+    implementation 'net.datafaker:datafaker:2.1.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testImplementation
+    }
+}
+
+
+task cucumber() {
+    dependsOn assemble, testClasses
+    doLast {
+        javaexec {
+            main = "io.cucumber.core.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = ['--plugin', 'pretty', '--glue', 'glue.stepDefs', 'src/test/features']
+        }
+    }
+}
+
+//mainClassName = 'org.practice.Main'
