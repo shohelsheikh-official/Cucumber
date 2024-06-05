@@ -43,12 +43,11 @@ public class Login implements En {
     @Before
     public void setupDriver(){
         driver = DriverSingleton.getInstance().getDriver();
-        System.out.println("Driver Initialised");
+        driver.manage().window().maximize();
     }
 
     @After
     public void tearDown(){
         DriverSingleton.closeDriver();
-        System.out.println(DriverSingleton.getInstance().getDriver().hashCode());
     }
 }
