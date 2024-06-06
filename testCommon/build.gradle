@@ -1,0 +1,108 @@
+//plugins {
+//    id 'java'
+//}
+//
+//apply plugin: 'groovy'
+//
+//
+//tasks.named('compileJava'){classpath += files(sourceSets.main.classesDirectory)  }
+//
+//sourceSets{
+//    testCommon{
+//        compileClasspath += sourceSets.main.output
+//        runtimeClasspath += sourceSets.main.output
+//    }
+//    main{
+//        java{
+//            srcDirs = ['src/main/java']
+//        }
+//        resources.srcDirs = ['src/main/resources']
+//    }
+//}
+//
+//configurations {
+//    testCommonImplementation.extendsFrom implementation
+//    testCommonRuntimeOnly.extendsFrom runtimeOnly
+//}
+////group = 'org.practice'
+////version = '1.0-SNAPSHOT'
+////
+////repositories {
+////    mavenCentral()
+////}
+//
+//dependencies {
+////    testImplementation platform('org.junit:junit-bom:5.9.1')
+////    testImplementation 'org.junit.jupiter:junit-jupiter'
+//
+//  //  testImplementation group: 'io.cucumber', name: 'cucumber-junit', version: '7.15.0'
+//
+//// https://mvnrepository.com/artifact/io.cucumber/cucumber-java8
+//    implementation group: 'io.cucumber', name: 'cucumber-java8', version: '7.15.0'
+//
+//    // https://mvnrepository.com/artifact/io.cucumber/cucumber-java
+//    implementation group: 'io.cucumber', name: 'cucumber-java', version: '7.15.0'
+//
+//    // https://mvnrepository.com/artifact/io.cucumber/cucumber-picocontainer
+//    implementation group: 'io.cucumber', name: 'cucumber-picocontainer', version: '7.15.0'
+//
+////
+////        testImplementation platform('org.junit:junit-bom:5.10.2')
+////        testImplementation 'org.junit.jupiter:junit-jupiter'
+//
+//
+//    testImplementation group: 'org.testng', name: 'testng', version: '7.6.0'
+//
+//    implementation 'org.seleniumhq.selenium:selenium-java:4.16.1'
+//
+//    implementation 'net.datafaker:datafaker:2.1.0'
+//}
+//
+
+plugins {
+    id 'java'
+    id 'groovy'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/main/java']
+        }
+        resources.srcDirs = ['src/main/resources']
+    }
+    testCommon {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+
+configurations {
+    testCommonImplementation.extendsFrom implementation
+    testCommonRuntimeOnly.extendsFrom runtimeOnly
+}
+
+tasks.named('compileJava').configure {
+    classpath += files(sourceSets.main.output)
+}
+
+dependencies {
+    // Implementation dependencies for main source set
+    implementation group: 'io.cucumber', name: 'cucumber-java8', version: '7.15.0'
+    implementation group: 'io.cucumber', name: 'cucumber-java', version: '7.15.0'
+    implementation group: 'io.cucumber', name: 'cucumber-picocontainer', version: '7.15.0'
+    implementation 'org.seleniumhq.selenium:selenium-java:4.16.1'
+    implementation 'net.datafaker:datafaker:2.1.0'
+
+    // Test implementation dependencies for the default test source set
+    testImplementation group: 'org.testng', name: 'testng', version: '7.6.0'
+}
+
+// Uncomment and configure if required
+// group = 'org.practice'
+// version = '1.0-SNAPSHOT'
+//
+ repositories {
+     mavenCentral()
+ }
+

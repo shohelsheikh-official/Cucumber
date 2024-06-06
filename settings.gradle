@@ -1,2 +1,5 @@
 rootProject.name = 'Cucumber'
+include 'QKART'
+include 'ZORDER'
+include 'testCommon'
 

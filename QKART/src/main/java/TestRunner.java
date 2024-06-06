@@ -4,11 +4,11 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/features"
+        features = "src/main/features"
         , glue = "glue.stepDefs"
         , dryRun = true
         , monochrome = true
-        , plugin = {"pretty", "html:target/Destination"}
+
 )
 public class TestRunner {
 }
